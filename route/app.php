@@ -17,5 +17,15 @@ Route::get('think', function () {
 // 访问 /hello/think，此时将转向 index 控制器下的 hello 方法，其中 :name 代表地址参数
 Route::get('hello/:name', 'index/hello');
 
-// 显示声明默认首页
-Route::rule('/', "index/index");
+// // 显示声明默认首页
+// Route::rule('/', "index/index");
+
+// 用户登录
+Route::get("user", "user/index");
+Route::post("user/login", "user/login");
+
+// 文章列表
+Route::get("list", "article/index");
+
+// 阅读文章
+Route::get("read/<id>", "article/read");

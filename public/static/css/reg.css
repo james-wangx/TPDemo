@@ -1,0 +1,43 @@
+#title {
+    margin-top: 300px;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.form {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.code button {
+    width: 90px;
+    height: 35px;
+    margin-left: 20px;
+}
+
+label {
+    width: 67px;
+    float: left;
+    font-weight: bold;
+    line-height: 35px;
+}
+
+input {
+    width: 240px;
+    height: 29px;
+    float: right;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+button {
+    width: 320px;
+    height: 35px;
+    background-color: dodgerblue;
+    color: whitesmoke;
+    border-radius: 5px;
+}
