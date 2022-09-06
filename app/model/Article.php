@@ -3,7 +3,7 @@
 namespace app\model;
 
 use think\Collection;
-use think\db\exception;
+use think\db\exception\DbException;
 use think\Model;
 
 class Article extends Model
@@ -13,32 +13,32 @@ class Article extends Model
     /**
      * 获取文章列表
      *
-     * @return Article[]|array|Collection
-     * @throws exception\DataNotFoundException
-     * @throws exception\DbException
-     * @throws exception\ModelNotFoundException
+     * @return Article[]|array|string|Collection
      */
     public function getArticleList()
     {
-        $result = $this->field("articleid, author, headline, viewcount, createtime")
-            ->where("articleid", "<", 10)
-            ->select();
-
-        return $result;
+        try {
+            return $this->field("articleid, author, headline, viewcount, createtime")
+                ->where("articleid", "<", 10)
+                ->select();
+            // 详细异常
+            // } catch (DataNotFoundException $e) {
+            // } catch (ModelNotFoundException $e) {
+            // }
+        } catch (DbException $e) {
+            return "db-exception";
+        }
     }
 
-    /**
-     * 通过文章 id 获取文章
-     *
-     * @param $id
-     *
-     * @return Article|array|mixed|Model|null
-     * @throws exception\DataNotFoundException
-     * @throws exception\DbException
-     * @throws exception\ModelNotFoundException
-     */
     public function getArticleById($id)
     {
-        return $this->find($id);
+        try {
+            return $this->find($id);
+            // 详细异常
+            // } catch (DataNotFoundException $e) {
+            // } catch (ModelNotFoundException $e) {
+        } catch (DbException $e) {
+            return "db-exception";
+        }
     }
 }

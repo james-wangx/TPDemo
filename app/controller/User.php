@@ -3,7 +3,7 @@
 namespace app\controller;
 
 use app\BaseController;
-use think\db\exception;
+use think\db\exception\DbException;
 use think\response\View;
 
 class User extends BaseController
@@ -21,9 +21,6 @@ class User extends BaseController
      * 验证登录
      *
      * @return string
-     * @throws exception\DataNotFoundException
-     * @throws exception\DbException
-     * @throws exception\ModelNotFoundException
      */
     public function login(): string
     {
@@ -33,17 +30,25 @@ class User extends BaseController
 
         // 从数据库中进行登录验证
         $user = new \app\model\User();
-        $result = $user->where(
-            [
-                "username" => $username,
-                "password" => $password
-            ]
-        )->select();
+        try {
+            $result = $user->where(
+                [
+                    "username" => $username,
+                    "password" => $password
+                ]
+            )->select();
 
-        if (count($result) === 1) {
-            return "login-pass";
-        } else {
-            return "login-failed";
+            if (count($result) === 1) {
+                return "login-pass";
+            } else {
+                return "login-failed";
+            }
+
+            // 详细异常
+            // } catch (exception\DataNotFoundException $e) {
+            // } catch (exception\ModelNotFoundException $e) {
+        } catch (DbException $e) {
+            return "db-exception";
         }
     }
 }
